@@ -1,23 +1,32 @@
-function plotSelfCorrelation_S(hAxis,handles)
+function plotSelfCorrelation_S
 
 %OHJ 07/26/2012, script-based DREES
 
 % global statC
-indexS=handles{end};
+% indexS=handles{end};
+% set(hAxis,'position',[0.2 0.2 0.7 0.7])
 
-set(hAxis,'position',[0.2 0.2 0.7 0.7])
+global statC
+indexS=statC{end};
 
+f = figure
+hAxis = axes('position',[0.2 0.2 0.7 0.7],'parent', f)
 
-xt=[handles{indexS.scriptDreesData}.D_outcome_grade',handles{indexS.scriptDreesData}.dataX];
+xt=[statC{indexS.scriptDreesData}.D_outcome_grade',double(statC{indexS.scriptDreesData}.D_data(:,statC{indexS.scriptDreesData}.D_selected_indices))];
 lx=size(xt,2);
 for i=1:lx
     for j=1:lx
         [rs(i,j),prob(i,j)] = spearman(xt(:,i),xt(:,j));
     end
 end
-variables{1} = handles{indexS.scriptDreesData}.D_model_type;
+variables{1} = statC{indexS.scriptDreesData}.D_model_type;
+
+data=statC{indexS.scriptDreesData}.D_data(:,statC{indexS.scriptDreesData}.D_selected_indices);
+labels = data.Properties.VarNames;
+
+
 for i=2:lx
-    variables{i}=handles{indexS.scriptDreesData}.SelectedVariableNames{i-1};
+    variables{i}=labels{i-1};
     
 end
 for i=1:length(rs)
