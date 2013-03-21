@@ -22,7 +22,7 @@ function DREES(command,varagrin)
 % 
 % This file is part of the Dose Response Explorer System (DREES).
 % 
-% DREES development has been led by:  Issam El Naqa, Aditya Apte, Gita Suneja, and Joseph O. Deasy.
+% DREES development has been led by:  Ya Wang, Issam El Naqa, Aditya Apte, Gita Suneja, and Joseph O. Deasy.
 % 
 % DREES has been financially supported by the US National Institutes of Health under multiple grants.
 % 

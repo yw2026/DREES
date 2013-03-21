@@ -9,7 +9,7 @@ function ddbs = xlsToDDBS(xlFile)
 % 
 % This file is part of the Dose Response Explorer System (DREES).
 % 
-% DREES development has been led by:  Issam El Naqa, Aditya Apte, Gita Suneja, and Joseph O. Deasy.
+% DREES development has been led by:  Ya Wang, Issam El Naqa, Aditya Apte, Gita Suneja, and Joseph O. Deasy.
 % 
 % DREES has been financially supported by the US National Institutes of Health under multiple grants.
 % 
@@ -34,7 +34,7 @@ try
     prompt={'Enter the name of sheet containing metrics and outcome:'};
     name='Metrics and Outcome Sheet Name';
     numlines=1;
-    defaultanswer={'Sheet 1'};
+    defaultanswer={'Sheet1'};
     sheet_name_metrics = inputdlg(prompt,name,numlines,defaultanswer);
     if ~isempty(sheet_name_metrics)
         sheet_name_metrics = sheet_name_metrics{1};
@@ -50,7 +50,7 @@ try
         prompt={'Enter the name of sheet containing metrics and outcome:'};
         name='Metrics and Outcome Sheet Name';
         numlines=1;
-        defaultanswer={'Sheet 1'};
+        defaultanswer={'Sheet2'};
         sheet_name_dvh = inputdlg(prompt,name,numlines,defaultanswer);
         if ~isempty(sheet_name_dvh)
             sheet_name_dvh = sheet_name_dvh{1};
@@ -73,7 +73,14 @@ try
         end
     end
     raw(:,indToRemove) = [];
-
+     %removes rows with non-numeric data
+    indToRemove  = [];
+    for i=1:size(raw,1)
+        if all(isnan([raw{i,:}]))
+            indToRemove = [indToRemove i];
+        end
+    end
+    raw(indToRemove,:) = [];
     %get variables from the selection list
     [selIndV, OK] = listdlg('ListString',raw(1,:),'PromptString','Select metrics or select All');
 
